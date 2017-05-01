@@ -74,7 +74,7 @@ app.get( '/getAllTodoItems', function ( req, res ) {
         res.send( todoArray );
       }); // end resultSet on end
     } // end if else
-  }); // end pool connection
+  }); // end pool.connect
 }); // end getAllTodoItems GET
 
 app.put( '/toggleItemComplete/:id/:completed', function ( req, res ) {
@@ -93,5 +93,19 @@ app.put( '/toggleItemComplete/:id/:completed', function ( req, res ) {
       done();
       res.sendStatus( 200 );
     } // end if else
-  }); // end pool.connection
+  }); // end pool.connect
 }); // end toggleItemComplete PUT
+
+app.delete( '/deleteTodoItem/:id', function ( req, res ) {
+  console.log( 'In deleteTodoItem route' );
+  pool.connect( function ( err, connection, done ) {
+    if ( err ) {
+      console.log( err );
+      res.sendStatus( 400 );
+    } else {
+      connection.query( "DELETE FROM todo_list_table WHERE id=$1", [ req.params.id ] );
+      done();
+      res.sendStatus( 200 );
+    } // end if else
+  }); // end pool.connect
+}); // end deleteTodoItem DELETE
