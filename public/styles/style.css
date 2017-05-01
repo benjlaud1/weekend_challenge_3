@@ -1,0 +1,9 @@
+.todo-nav {
+  background-color: lightgray;
+  border: 2px solid black;
+}
+
+.completed {
+  background-color: lime;
+  border: 2px solid green;
+}
